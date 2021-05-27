@@ -1,0 +1,133 @@
+<div class="modal-header bg-theme">
+  <div class="row">
+    <div class="col-lg-5">
+      <h4 class="modal-title text-white">รายละเอียดการกระทำผิด</h4>
+    </div>
+
+    <div class="col-lg-6 col-8">
+    </div>
+
+    <a href="javaScript:void(0);" class="close text-white font-14" aria-label="Close" (click)="dismiss('Cross click')">
+      <span aria-hidden="true">
+        <i class=" ti-close"></i>
+      </span>
+    </a>
+  </div>
+</div>
+<h5 class="text-right mt-3 pr-3">ILG60_MAS_01_01_02_01</h5>
+<div class="modal-body font-14">
+  <div>
+    <div class="card unset-radius m-b-15">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table style="width: 155%; max-width: unset;" class="table table-sm table-striped table-nowrap">
+            <thead>
+              <th style="width: 3%" class="text-center">ลำดับ</th>
+              <th style="width: 10%">เลขที่งาน</th>
+              <th style="width: 9%">วันที่จับกุม</th>
+              <th style="width: 8%;">เลขที่คดี</th>
+              <th style="width: 6%;">วันที่รับคดี</th>
+              <th style="width: 12%">ชื่อผู้กล่าวหา</th>
+              <th style="width: 13%">ชื่อผู้ต้องหา</th>
+              <th style="width: 6%">มาตรา</th>
+              <th style="width: 13%">ฐานควาผิด</th>
+              <th style="width: 8%;">ข้อมูลอ้างอิง</th>
+              <!-- <th style="width: 15%">สถานที่เกิดเหตุ</th>
+                <th style="width: 15%">เขียนที่</th> -->
+              <!-- <th style="width: 15%">สถานะการรับคดี</th> -->
+              <th style="width: 3%"></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of results; let i=index;">
+                <td class="text-center">{{i+1}}</td>
+                <td class="">{{data.ARREST_CODE}}</td>
+                <td class="">{{data.ARREST_DATE}}</td>
+                <td class="">{{data.LAWSUIT_NO}}</td>
+                <td class="">{{data.LAWSUIT_DATE}}</td>
+                <td class="">{{data.ARREST_STAFF}}</td>
+                <td class="">{{data.ARREST_LAWBREAKER}}</td>
+                <td class="">{{data.SUBSECTION_NAME}}</td>
+                <td class="">{{data.GUILTBASE_NAME}}</td>
+                <td class="">{{data.SYSTEM_NAME}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer card-footer-unset">
+        <app-pagination-table [TotalItems]="paginage.TotalItems" [CurrentPage]="paginage.CurrentPage"
+          [PageSize]="paginage.PageSize" [RowsPerPageOptions]="paginage.RowsPerPageOptions"
+          (onPageChange)="pageChanges($event)">
+        </app-pagination-table>
+      </div>
+
+      <!-- test bilding data -->
+      <div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <!-- <th scope="col">#</th> -->
+              <th scope="col">POST_ID</th>
+              <th scope="col">ID</th>
+              <th scope="col">NAME</th>
+              <th scope="col">EMAIL</th>
+              <th scope="col">BODY</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let com  of Istcomments">
+              <!-- <td>{{ i+1 }}</td> -->
+              <td>{{ com.postId }}</td>
+              <td>{{ com.id }}</td>
+              <td>{{ com.name }}</td>
+              <td>{{ com.email }}</td>
+              <td>{{ com.body }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <!-- Hello, Padma -->
+        <h1>Hello, {{customer}}</h1>
+        <ul>
+          <!-- Ebony and Chiho in a list-->
+          <li *ngFor="let customer of customers">{{ customer.value }}</li>
+        </ul>
+      </div>
+
+      <div *ngIf="hero">
+        <form action="">
+          <h2>{{hero.name | uppercase}} Details</h2>
+          <div><span>id: </span>{{hero.id}}</div>
+          <div><span>name: </span>{{hero.name }}</div>
+          <div>
+            <label for="name">Hero name: </label>
+            <input id="name" [(ngModel)]="hero.name" name="name" placeholder="name">
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <h2>My Heroes</h2>
+        <ul class="heroes">
+          <li *ngFor="let hero of heroes"
+           [class.selected]="hero === selectedHero"
+           (click)="onSelect(hero)">
+            <span class="badge">{{hero.id}}</span><span class="badge">{{hero.name}}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="selectedHero">
+        <h2>{{selectedHero.name | uppercase}} Details</h2>
+        <div><span>id: </span>{{selectedHero.id}}</div>
+        <div>
+          <label for="hero-name">Hero name: </label>
+          <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

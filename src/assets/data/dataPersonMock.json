@@ -1,0 +1,35 @@
+[
+	{
+		"ARREST_CODE": "TN1003006400011",
+		"ARREST_DATE": "05-04-2564",
+		"LAWSUIT_NO": "01/2564",
+		"LAWSUIT_DATE": "05-04-2564",
+		"ARREST_STAFF": "นางวรรณภา งามสุทธิ",
+		"ARREST_LAWBREAKER": "นายชลสิทธิ์ คลิ้งคล้าย",
+		"SUBSECTION_NAME": "203 (1)",
+ 		"GUILTBASE_NAME": "มีไว้ในครอบครองซึ่งสินค้าที่มิได้เสียภาษี",
+		"SYSTEM_NAME": "New System"
+	},
+	{
+		"ARREST_CODE": "TN1003006400009",
+		"ARREST_DATE": "19-03-2564",
+		"LAWSUIT_NO": "02/2564",
+		"LAWSUIT_DATE": "19-03-2564",
+		"ARREST_STAFF": "นายสมชาย ลอยเลื่อน",
+		"ARREST_LAWBREAKER": "นายชลสิทธิ์ คลิ้งคล้าย",
+		"SUBSECTION_NAME": "203 (1)",
+ 		"GUILTBASE_NAME": "มีไว้ในครอบครองซึ่งสินค้าที่มิได้เสียภาษี",
+		"SYSTEM_NAME": "New System"
+	},
+	{
+		"ARREST_CODE": "TN1003006300012",
+		"ARREST_DATE": "17-06-2563",
+		"LAWSUIT_NO": "122/2563",
+		"LAWSUIT_DATE": "17-06-2563",
+		"ARREST_STAFF": "นายสมชาย ลอยเลื่อน",
+		"ARREST_LAWBREAKER": "นายชลสิทธิ์ คลิ้งคล้าย",
+		"SUBSECTION_NAME": "203 (1)",
+ 		"GUILTBASE_NAME": "มีไว้ในครอบครองซึ่งสินค้าที่มิได้เสียภาษี",
+		"SYSTEM_NAME": "Old System"
+	}
+]
