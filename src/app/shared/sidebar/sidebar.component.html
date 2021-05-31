@@ -80,7 +80,7 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav" style="padding-left: 2px; padding-right: 2px">
             <ul id="sidebarnav">
-                <li>
+                <!-- <li>
                     <a class="has-arrow" (click)="clickEvent()" href="javascript:void(0)" id="dLabel"
                         data-toggle="dropdown" aria-expanded="false">
                         <strong style="height: 38px;">1</strong>
@@ -118,6 +118,14 @@
                             </a>
                         </li>
                     </ul>
+                </li> -->
+                
+                <li>
+                    <a [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"
+                        [routerLink]="['/notice/list']" class="CloseSidebar">
+                        <strong style="height: 38px;">1</strong>
+                        <span class="hide-menu">ใบแจ้งความนำจับ</span>
+                    </a>
                 </li>
 
                 <li>
