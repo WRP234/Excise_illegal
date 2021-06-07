@@ -267,6 +267,7 @@ export class ManageComponent extends ShareFunctions implements OnInit, OnDestroy
         let index: number = 0;
         index = this.DisconID ? 0 : 1;
         let FULL_NAME = this.NoticeStaff.value[index].FULL_NAME;
+        let OPERATION_POS_CODE = this.NoticeStaff.value[index].OPERATION_POS_CODE;
         if (!FULL_NAME) {
             this.isRequired = true;
             index == 0 ? this.isReq_Staff0.next(true) : this.isReq_Staff1.next(true);
@@ -274,6 +275,18 @@ export class ManageComponent extends ShareFunctions implements OnInit, OnDestroy
             this.NoticeStf.next(true);
             swal({
                 text: `กรุณาระบุข้อมูล "${this.getContributorID(index)}" `,
+                type: 'warning',
+                confirmButtonText: 'ตกลง'
+            })
+            return false;
+        }
+        if (this.noticeForm.controls['IS_AUTHORITY'].value == '1' && OPERATION_POS_CODE != "510308"){
+          this.isRequired = true;
+            index == 0 ? this.isReq_Staff0.next(true) : this.isReq_Staff1.next(true);
+            index == 0 ? this.isReq_Staff1.next(false) : this.isReq_Staff0.next(false);
+            this.NoticeStf.next(true);
+            swal({
+                text: `ชื่อ-ตำแหน่ง ผู้มีอำนาจรับแจ้งความไม่ถูกต้อง`,
                 type: 'warning',
                 confirmButtonText: 'ตกลง'
             })
