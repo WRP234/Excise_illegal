@@ -79,6 +79,7 @@ export class ShareFunctions extends variable implements OnDestroy {
     }
 
     onClickEditField() {
+        this.mode = 'C';
         /** set false */
         this.editButton.next(false)
         this.deleteButton.next(false);

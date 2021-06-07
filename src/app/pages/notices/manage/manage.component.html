@@ -235,14 +235,14 @@
             <div class="row col-lg-6 m-b-10">
                 <div class="custom-control custom-radio col-form-label col-lg-5 col-md-5 col-sm-5">
                     <input name="rv" id="rv1" class="col-form-label with-gap radio-col-indigo" type="radio"
-                        (change)="onSelectionForm($event)" [checked]="noticeForm.controls['IS_AUTHORITY'].value == '1'">
-                        <!-- [disabled]="mode =='R'? true:false"> -->
+                        (change)="onSelectionForm($event)" [checked]="noticeForm.controls['IS_AUTHORITY'].value == '1'"
+                        [disabled]="mode =='R'? true:false">
                     <label for="rv1">มีอำนาจรับเเจ้งความ</label>
                 </div>
                 <div class="custom-control custom-radio col-form-label col-lg-5 col-md-5 col-sm-5">
                     <input name="rv" id="rv2" class="col-form-label with-gap radio-col-indigo" type="radio"
-                        (change)="onSelectionForm($event)" [checked]="noticeForm.controls['IS_AUTHORITY'].value == '0'">
-                        <!-- [disabled]="mode =='R'? true:false"> -->
+                        (change)="onSelectionForm($event)" [checked]="noticeForm.controls['IS_AUTHORITY'].value == '0'"
+                        [disabled]="mode =='R'? true:false">
                     <label for="rv2">ไม่มีอำนาจรับเเจ้งความ</label>
                 </div>
             </div>
