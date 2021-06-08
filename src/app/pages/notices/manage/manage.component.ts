@@ -286,7 +286,7 @@ export class ManageComponent extends ShareFunctions implements OnInit, OnDestroy
             index == 0 ? this.isReq_Staff1.next(false) : this.isReq_Staff0.next(false);
             this.NoticeStf.next(true);
             swal({
-                text: `ชื่อ-ตำแหน่ง ผู้มีอำนาจรับแจ้งความไม่ถูกต้อง`,
+                text: `ต้องมีการระบุ เจ้าหน้าที่ที่มีตำแหน่งเป็นสรรพสามิตพื้นที`,
                 type: 'warning',
                 confirmButtonText: 'ตกลง'
             })
