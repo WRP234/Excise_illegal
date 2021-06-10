@@ -313,7 +313,31 @@ export class ManageComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         this.lawsuitForm.controls["LAWSUIT_NO"].setValue(res["RUNNING_NO"]);
       });
-  }
+
+         const fullName: any[] = [];
+         const allName: any[] = [];
+
+        if(this.ArrestIndictment.LawsuitArrestIndictmentDetail.length === 1){
+
+          fullName.push(this.ArrestIndictment.LawsuitArrestIndictmentDetail[0].TITLE_NAME_TH + " " + this.ArrestIndictment.LawsuitArrestIndictmentDetail[0].FIRST_NAME + "  " +this.ArrestIndictment.LawsuitArrestIndictmentDetail[0].LAST_NAME);
+
+          this.lawsuitForm.controls["TESTIMONY"].setValue("วันที่ " + toLocalShort(this.ArrestIndictment.OCCURRENCE_DATE) + " เวลา " + this.ArrestIndictment.OCCURRENCE_DATE.slice(10, 16) + " " + " น. ข้าฯ พร้อมด้วยพวกได้ดำเนินการจับกุม "+ fullName[0] +
+          " พร้อมของกลาง ตามบัญชีของกลาง ส.ส.2/4 โดยแจ้งข้อกล่าวหา"+ this.ArrestIndictment.GUILTBASE_NAME +" ให้ทราบ ผู้ต้องหายินยอมชำระค่าปรับ ในความผิดที่ถูกกล่าวหา จึงได้นำตัวส่ง สำนักงานสรรพสามิตพื้นที่กรุงเทพฯ 3 เพื่อดำเนินการต่อไป");
+        }else{
+
+          for(var i=0; this.ArrestIndictment.LawsuitArrestIndictmentDetail.length > i; i++){
+              fullName.push(this.ArrestIndictment.LawsuitArrestIndictmentDetail[i].TITLE_NAME_TH + " " + this.ArrestIndictment.LawsuitArrestIndictmentDetail[i].FIRST_NAME + "  " +this.ArrestIndictment.LawsuitArrestIndictmentDetail[i].LAST_NAME);
+          }
+
+          for(var n=0; fullName.length > n; n++){
+              allName.push(fullName[n]);
+          }
+
+          this.lawsuitForm.controls["TESTIMONY"].setValue("วันที่ " + toLocalShort(this.ArrestIndictment.OCCURRENCE_DATE) + " เวลา " + this.ArrestIndictment.OCCURRENCE_DATE.slice(10, 16) + " " + " น. ข้าฯ พร้อมด้วยพวกได้ดำเนินการจับกุม "+ allName +
+          " พร้อมของกลาง ตามบัญชีของกลาง ส.ส.2/4 โดยแจ้งข้อกล่าวหา"+ this.ArrestIndictment.GUILTBASE_NAME +" ให้ทราบ ผู้ต้องหายินยอมชำระค่าปรับ ในความผิดที่ถูกกล่าวหา จึงได้นำตัวส่ง สำนักงานสรรพสามิตพื้นที่กรุงเทพฯ 3 เพื่อดำเนินการต่อไป");
+         }
+
+      }
 
   private createLawsuitForm() {
     const newDate = new Date();
