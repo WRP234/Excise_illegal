@@ -18,6 +18,7 @@ import { IMyDpOptions } from 'mydatepicker';
 import { Document, ImageDocument, FileType } from '../proveDocument';
 import { pagination } from '../../../config/pagination';
 import { saveAs } from 'file-saver';
+import { LoaderService } from '../../../core/loader/loader.service';
 
 declare var $: any;
 
@@ -162,6 +163,7 @@ export class ManageComponent extends MastersConfig {
         private router: Router,
         private preloader: PreloaderService,
         private ProveSV: ProveService,
+        private loaderService: LoaderService,
         private MasService: MasterService
     ) { super(); }
 
@@ -965,7 +967,6 @@ export class ManageComponent extends MastersConfig {
         else {
             await this.OnUpdProve();
         }
-
         // this.setProveData();
     }
 
