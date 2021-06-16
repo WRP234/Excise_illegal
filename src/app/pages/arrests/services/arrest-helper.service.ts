@@ -8,8 +8,11 @@ import {
 
 export class ArrestHelperService {
   protected DocumentApiPrefixUrl = `${environment.api_port}1123/XCS60`;
-  protected ArrestApiPrefixUrl = `${environment.api_port}1111/XCS60`;
-  protected MasterApiPrefixUrl = `${environment.api_port}2222/XCS60`;
+  // protected ArrestApiPrefixUrl = `${environment.api_port}1111/XCS60`;
+  protected ArrestApiPrefixUrl = `${environment.api_port}7003/XCS60`;
+
+  // protected MasterApiPrefixUrl = `${environment.api_port}2222/XCS60`;
+  protected MasterApiPrefixUrl = `${environment.api_port}7003/XCS60MAS`;
 
   public PipeResponseData(obj: Observable<any>) {
     return obj.pipe(map(x => {
