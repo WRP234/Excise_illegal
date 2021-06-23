@@ -118,7 +118,8 @@
             <tr *ngFor="let item of IndictmentLawbreaker.controls; let i=index;" [formGroupName]="i">
               <td class="text-center">
                 <input type="checkbox" [id]="'IndictmentLawbreaker_rb'+i" name="IS_CHECKED"
-                  class="filled-in chk-col-indigo" formControlName="IS_CHECKED" (change)="onSelectionChangeLP$()">
+                  class="filled-in chk-col-indigo" formControlName="IS_CHECKED" (change)="onSelectionChangeLP$()"
+                  [attr.disabled]="item.get('IS_DISABLED').value ? true : null">
                 <label [for]="'IndictmentLawbreaker_rb'+i" class="m-0"></label>
               </td>
               <td class="text-center">{{i+1}}</td>
@@ -188,7 +189,8 @@
             <tr *ngFor="let item of IndictmentProducts.controls; let i=index;" [formGroupName]="i">
               <td class="text-center">
                 <input type="checkbox" [id]="'IndictmentProducts_rb'+i" name="IS_CHECKED"
-                  class="filled-in chk-col-indigo" formControlName="IS_CHECKED" (change)="onSelectionChangeLP$()">
+                  class="filled-in chk-col-indigo" formControlName="IS_CHECKED" (change)="onSelectionChangeLP$()"
+                  [attr.disabled]="item.get('IS_DISABLED').value ? true : null">
                 <label [for]="'IndictmentProducts_rb'+i" class="m-0"></label>
               </td>
               <td class="text-center">{{i+1}}</td>

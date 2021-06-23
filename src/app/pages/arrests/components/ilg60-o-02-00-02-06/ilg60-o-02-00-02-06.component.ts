@@ -69,15 +69,31 @@ export class Ilg60O02000206Component extends Ilg60O02000206Config implements OnI
         this.LawbcheckedAll = true;
         this.ProdcheckedAll = true;
 
-        if (Lawbreaker.length > 0)
+        if (Lawbreaker.length > 0){
           this.ILG60_o_02_00_02_06_C2.next(true);
-        else
+          for(var i=0; i<Lawbreaker.length; i++){
+            if(Lawbreaker[i].ACTION == "EDIT"){
+              Lawbreaker[i].IS_DISABLED = true;
+            } else {
+               Lawbreaker[i].IS_DISABLED = false;
+            }
+          }
+        }else{
           this.ILG60_o_02_00_02_06_C2.next(false);
+        }
 
-        if (Products.length > 0)
+        if (Products.length > 0){
+          for(var i=0; i<Products.length; i++){
+            if(Products[i].ACTION == "EDIT"){
+              Products[i].IS_DISABLED = true;
+            } else {
+              Products[i].IS_DISABLED = false;
+            }
+          }
           this.ILG60_o_02_00_02_06_C3.next(true);
-        else
+        }else{
           this.ILG60_o_02_00_02_06_C3.next(false);
+        }
 
         this.setItemFormArray(Lawbreaker, 'IndictmentLawbreaker');
         this.setItemFormArray(Products, 'IndictmentProducts');
@@ -96,7 +112,9 @@ export class Ilg60O02000206Component extends Ilg60O02000206Config implements OnI
   public LawbcheckAll(e: Event) {
     const checkbox = e.target as HTMLInputElement;
     for (let index = 0; index < this.IndictmentLawbreaker.value.length; index++) {
-      this.IndictmentLawbreaker.at(index).get('IS_CHECKED').patchValue(checkbox.checked);
+      if(this.IndictmentLawbreaker.at(index).get('IS_DISABLED').value === false){
+        this.IndictmentLawbreaker.at(index).get('IS_CHECKED').patchValue(checkbox.checked);
+      }
     }
     this.onSelectionChangeLP$();
   }
@@ -104,7 +122,9 @@ export class Ilg60O02000206Component extends Ilg60O02000206Config implements OnI
   public ProdcheckAll(e: Event) {
     const checkbox = e.target as HTMLInputElement;
     for (let index = 0; index < this.IndictmentProducts.value.length; index++) {
-      this.IndictmentProducts.at(index).get('IS_CHECKED').patchValue(checkbox.checked);
+      if(this.IndictmentProducts.at(index).get('IS_DISABLED').value === false){
+        this.IndictmentProducts.at(index).get('IS_CHECKED').patchValue(checkbox.checked);
+      }
     }
     this.onSelectionChangeLP$();
   }
