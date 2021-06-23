@@ -1225,12 +1225,25 @@ export class ManageComponent extends MastersConfig {
         }
 
         if (isSuccess) {
-            this.preloader.setShowPreloader(false);
-            this.ShowAlertSuccess(Message.saveComplete);
             this.onComplete();
             this.ShowProveData();
 
             this.router.navigate([`/prove/manage/R/${this.PROVE_TYPE}/${this.PROVE_ID}/${this.LAWSUIT_ID}/${this.INDICTMENT_ID}`]);
+
+            swal({
+                title: "",
+                text: Message.saveComplete,
+                type: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "ตกลง",
+            }).then((r) => {
+              if (r) {
+                location.reload();
+              }
+            });
+  
+            this.preloader.setShowPreloader(false);
         }
         else {
             this.ShowAlertError(Message.saveFail);
