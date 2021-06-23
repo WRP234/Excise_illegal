@@ -18,6 +18,7 @@ import { IMyDpOptions } from 'mydatepicker';
 import { Document, ImageDocument, FileType } from '../proveDocument';
 import { pagination } from '../../../config/pagination';
 import { saveAs } from 'file-saver';
+import { LoaderService } from '../../../core/loader/loader.service';
 
 declare var $: any;
 
@@ -114,7 +115,7 @@ export class ManageComponent extends MastersConfig {
         // disableSince: { year: this.today.getFullYear(), month: this.today.getMonth() + 1, day: this.today.getDate() + 1 },
     };
 
-    //#region 
+    //#region
     isReq_proveNo = new BehaviorSubject<boolean>(false);
     isReq_stationName = new BehaviorSubject<boolean>(false);
     isReq_proveDate = new BehaviorSubject<boolean>(false);
@@ -162,6 +163,7 @@ export class ManageComponent extends MastersConfig {
         private router: Router,
         private preloader: PreloaderService,
         private ProveSV: ProveService,
+        private loaderService: LoaderService,
         private MasService: MasterService
     ) { super(); }
 
@@ -965,7 +967,6 @@ export class ManageComponent extends MastersConfig {
         else {
             await this.OnUpdProve();
         }
-
         // this.setProveData();
     }
 
@@ -1002,7 +1003,7 @@ export class ManageComponent extends MastersConfig {
                     this.SaveButton.next(false);
                     this.CancelButton.next(false);
 
-                    // set true  
+                    // set true
                     this.PrintButton.next(true);
                     this.EditButton.next(true);
                     this.DeleteButton.next(true);
@@ -1063,7 +1064,7 @@ export class ManageComponent extends MastersConfig {
     // **********************************
     // ------- Function For Action ------
     // **********************************
-    //#region 
+    //#region
     setProveData() {
         let IS_OUTSIDE = `${this.PROVE_IS_OUTSIDE ? "1" : "0"}`;
         let IS_SCIENCE;
@@ -1092,7 +1093,7 @@ export class ManageComponent extends MastersConfig {
             DELIVERY_DOC_NO_1: this.DELIVERY_DOC_NO_1,                              // เลขที่อ้างอิงหนังสือนำส่งของกลางเพื่อจัดเก็บ 1 (ใช้ทั้งพิสูจน์ให้หน่วยงานภายในและหน่วยงานภายนอก)
             DELIVERY_DOC_DATE: cvDeliveryDate,                                      // หนังสือนำส่งของกลางเพื่อจัดเก็บลงวันที่ (ใช้ทั้งพิสูจน์ให้หน่วยงานภายในและหน่วยงานภายนอก)
             RECEIVE_DOC_DATE: cvReceiveDate,                                        // วันเวลาที่ตรวจรับของกลาง (ใช้ทั้งพิสูจน์ให้หน่วยงานภายในและหน่วยงานภายนอก)
-            OCCURRENCE_DATE: "",                                                    // วันที่เกิดเหตุ (กรณีพิสูจน์ให้หน่วยงานภายนอกเท่านั้น) 
+            OCCURRENCE_DATE: "",                                                    // วันที่เกิดเหตุ (กรณีพิสูจน์ให้หน่วยงานภายนอกเท่านั้น)
             PROVE_RESULT: this.PROVE_RESULT_ALL.substring(0, 2000),                                         // สรุปผลรายงานการพิสูจน์
             PROVE_RESULT1: this.PROVE_RESULT_ALL.substring(2000, 4000),                                         // สรุปผลรายงานการพิสูจน์
             PROVE_RESULT2: this.PROVE_RESULT_ALL.substring(4000, 6000),                                         // สรุปผลรายงานการพิสูจน์
@@ -1224,10 +1225,10 @@ export class ManageComponent extends MastersConfig {
         }
 
         if (isSuccess) {
+            this.preloader.setShowPreloader(false);
             this.ShowAlertSuccess(Message.saveComplete);
             this.onComplete();
             this.ShowProveData();
-            this.preloader.setShowPreloader(false);
 
             this.router.navigate([`/prove/manage/R/${this.PROVE_TYPE}/${this.PROVE_ID}/${this.LAWSUIT_ID}/${this.INDICTMENT_ID}`]);
         }
@@ -1256,7 +1257,7 @@ export class ManageComponent extends MastersConfig {
         // **********************************
         // -------------- Staff -------------
         // **********************************
-        //#region 
+        //#region
         if (isSuccess) {
             let lsResult = [];
             lsResult = await Promise.all(this.PROVE_STAFF_LIST.filter(f => f.STAFF != undefined && f.IsNewItem == true).map(async m => {
@@ -1322,7 +1323,7 @@ export class ManageComponent extends MastersConfig {
         // **********************************
         // -------------- Product -----------
         // **********************************
-        //#region 
+        //#region
         if (isSuccess) {
             let lsResult = [];
             lsResult = await Promise.all(this.LIST_ARREST_PRODUCT.filter(f => f.IsNewItem == true).map(async m => {
@@ -1398,7 +1399,7 @@ export class ManageComponent extends MastersConfig {
         // **********************************
         // -------------- Document ----------
         // **********************************
-        //#region 
+        //#region
         if (isSuccess) {
             let lsResult = [];
 
@@ -1443,11 +1444,24 @@ export class ManageComponent extends MastersConfig {
 
 
         if (isSuccess) {
-            this.ShowAlertSuccess(Message.saveComplete);
-
             this.onComplete();
             this.ShowProveData();
-            this.preloader.setShowPreloader(false);
+
+            swal({
+              title: "",
+              text: Message.saveComplete,
+              type: "success",
+              showCancelButton: false,
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "ตกลง",
+          }).then((r) => {
+            if (r) {
+              location.reload();
+            }
+          });
+
+          this.preloader.setShowPreloader(false);
+
         }
         else {
             this.ShowAlertError(Message.saveFail);
@@ -1475,7 +1489,7 @@ export class ManageComponent extends MastersConfig {
     // **********************************
     // ------------- DateTime -----------
     // **********************************
-    //#region 
+    //#region
     getCurrentDate() {
         let date = new Date();
         return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1).toISOString().substring(0, 10);
@@ -1960,7 +1974,7 @@ export class ManageComponent extends MastersConfig {
     // **********************************
     // -------------- Message ----------
     // **********************************
-    //#region 
+    //#region
     ShowAlertSuccess(alertText: string) {
         swal({
             title: '',
