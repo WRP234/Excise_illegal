@@ -80,14 +80,16 @@ export class PrintDocModalComponent implements OnInit {
             await this.noticeService.printRV1(this.NoticeCode).subscribe(x => {
               const file = new Blob([x], { type: 'application/pdf' });
               const fileURL = URL.createObjectURL(file);
-              window.open(fileURL);
+              var opentWindow = window.open(fileURL,'_blank');
+              opentWindow.location;
               this.preLoaderService.setShowPreloader(false);
             }, (() => { this.preLoaderService.setShowPreloader(false); }))
           } else if (selected == 2) {
             await this.noticeService.printRV2(this.NoticeCode).subscribe(x => {
               const file = new Blob([x], { type: 'application/pdf' });
               const fileURL = URL.createObjectURL(file);
-              window.open(fileURL);
+              var opentWindow = window.open(fileURL,'_blank');
+              opentWindow.location;
               this.preLoaderService.setShowPreloader(false);
             }, (() => { this.preLoaderService.setShowPreloader(false); }))
           }
