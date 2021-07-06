@@ -43,6 +43,8 @@ import { merge, from, forkJoin } from "rxjs";
 import { mergeMap, map } from "rxjs/operators";
 import { ShareFunctions } from "../share/function";
 import { saveAs } from "file-saver";
+import { LoaderService } from '../../../core/loader/loader.service';
+
 
 @Component({
   selector: "app-manage",
@@ -65,6 +67,7 @@ export class ManageComponent
     private sidebarService: SidebarService,
     private mainMasterService: MainMasterService,
     private preLoaderService: PreloaderService,
+    private loaderService: LoaderService,
     private transactionRunningService: TransactionRunningService,
     private activatedRoute: ActivatedRoute
   ) {
@@ -1719,8 +1722,10 @@ export class ManageComponent
   }
 
   selectItemLocaleRegion(ele: any) {
+    this.loaderService.showLoader();
     this.NoticeLocale.at(0).patchValue({
       SUB_DISTRICT_ID: ele.item.SUB_DISTRICT_ID,
+
     });
 
     // ///********SET LOCALE_OFFICE_CODE*********//
@@ -1751,6 +1756,8 @@ export class ManageComponent
           })
       )
       .do(() => (this.searching = false));
+
+
 
   public searchStaff = (text2$: Observable<string>) =>
     text2$
@@ -2250,4 +2257,5 @@ export class ManageComponent
         });
       }, 200);
   }
+
 }
