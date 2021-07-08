@@ -54,7 +54,6 @@
     <app-products [NOTICE_ID]="NOTICE_ID" (c)="modal.close()" (d)="modal.dismiss()"></app-products>
 </ng-template>
 
-
 <ng-template #suspect let-c="close" let-d="dismiss">
     <app-notice-suspect-modal (c)="modal.close()" (d)="modal.dismiss()" (exportSuspectData)="addSuspect($event)"
         (Create)="CreateSuspect($event ,PERSON_ID, MISTREAT_NO)">
@@ -538,6 +537,12 @@
                                     (selectItem)="selectItemInformmerRegion($event)" [value]="item.get('Region').value"
                                     (blur)="blurSelectItemInformmerRegion(informerRegion)" #informerRegion
                                     [ngClass]="{'ng-touched':isRequired}" (keydown)="isReq_subDisID.next(false)" />
+                                <!-- <input type="text" class="form-control form-control-sm" [ngbTypeahead]="searchRegion"
+                                    [resultTemplate]="rt" [readOnly]="showEditField" [inputFormatter]="formatterRegion"
+                                    (selectItem)="selectItemInformmerRegion($event)" 
+                                    [value]="item.get('Region').value"
+                                    (blur)="blurSelectItemInformmerRegion(informerRegion)" #informerRegion
+                                    [ngClass]="{'ng-touched':isRequired}" (keydown)="isReq_subDisID.next(false)" /> -->
                                 <br>
                                 <div class="alert alert-danger mt-3" role="alert" *ngIf="isReq_subDisID.value">
                                     กรุณาระบุข้อมูล "ตำบล/อำเภอ/จังหวัด"
@@ -888,12 +893,23 @@
                                 <ng-template #rt let-r="result" let-t="term">
                                     {{ r.SUB_DISTRICT_NAME_TH }} {{r.DISTRICT_NAME_TH}} {{r.PROVINCE_NAME_TH}}
                                 </ng-template>
-                                <input type="text" class="form-control form-control-sm" [ngbTypeahead]="searchRegion"
+                                <!-- <input type="text" class="form-control form-control-sm" [ngbTypeahead]="searchRegion"
                                     [readOnly]="showEditField" [resultTemplate]="rt" [inputFormatter]="formatterRegion"
                                     (selectItem)="selectItemLocaleRegion($event)"
-                                    (blur)="blurSelectItemLocaleRegion(localeRegion)" [value]="item.get('Region').value"
+                                    (blur)="blurSelectItemLocaleRegion(localeRegion)" 
+                                    [value]="item.get('Region').value"
                                     [ngClass]="{'ng-invalid-req':isReq_Local.value}" (keydown)="isReq_Local.next(false)"
-                                    #localeRegion />
+                                    #localeRegion /> -->
+
+                                <input type="text" class="form-control form-control-sm" [ngbTypeahead]="searchRegion"
+                                    [readOnly]="showEditField" [resultTemplate]="rt" [inputFormatter]="formatterRegion"
+                                    (selectItem)="selectItemInformmerRegion($event)"
+                                    (blur)="blurSelectItemLocaleRegion(localeRegion)"
+                                    value="{{item.get('SUB_DISTRICT_NAME_TH').value ? item.get('SUB_DISTRICT_NAME_TH').value + ' ' : null}}
+                                    {{item.get('DISTRICT_NAME_TH').value ? item.get('DISTRICT_NAME_TH').value + ' ' : null}}{{item.get('PROVINCE_NAME_TH').value}}"
+                                    required [ngClass]="{'is-invalid': (REGION_REQ | async)}"
+                                    (keydown)="isReq_Local.next(false)" #localeRegion />
+
                                 <!-- <div class="alert alert-danger mt-3" role="alert" *ngIf="isReq_Local.value">
                                     กรุณาระบุข้อมูล "ตำบล/อำเภอ/จังหวัด"
                                 </div> -->

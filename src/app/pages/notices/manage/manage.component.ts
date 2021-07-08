@@ -43,8 +43,8 @@ import { merge, from, forkJoin } from "rxjs";
 import { mergeMap, map } from "rxjs/operators";
 import { ShareFunctions } from "../share/function";
 import { saveAs } from "file-saver";
-import { LoaderService } from '../../../core/loader/loader.service';
-
+import { LoaderService } from "../../../core/loader/loader.service";
+import { MasSubDistrictgetByCon } from "app/pages/arrests/models";
 
 @Component({
   selector: "app-manage",
@@ -351,6 +351,7 @@ export class ManageComponent
       this.isRequired = true;
       this.NoticeLoc.next(true);
       this.isReq_Local_Name.next(true);
+      this.REGION_REQ.next(true);
       swal({
         text: `กรุณาระบุข้อมูล "สถานที่เกิดเหตุ"`,
         type: "warning",
@@ -364,6 +365,7 @@ export class ManageComponent
       this.isRequired = true;
       this.NoticeLoc.next(true);
       this.isReq_Local.next(true);
+      this.REGION_REQ.next(true);
       swal({
         text: `กรุณาระบุข้อมูล "ตำบล/อำเภอ/จังหวัด"`,
         type: "warning",
@@ -812,7 +814,8 @@ export class ManageComponent
   private async getByCon(code: string) {
     this.preLoaderService.setShowPreloader(true);
 
-    await this.setRegionStore();
+    //****Ref# line 1708****//
+    // await this.setRegionStore();
 
     await this.noticeService.getByCon(code).then(async (res) => {
       this.showEditField = true;
@@ -1165,6 +1168,12 @@ export class ManageComponent
       m.ROOM_NO = m.ROOM_NO || "";
       m.Region = m.Region || "";
       m.SUB_DISTRICT_ID = m.SUB_DISTRICT_ID || "";
+      m.SUB_DISTRICT_NAME_TH = m.SUB_DISTRICT_NAME_TH || "";
+      m.SUB_DISTRICT_NAME_EN = m.SUB_DISTRICT_NAME_EN || "";
+      m.DISTRICT_NAME_TH = m.DISTRICT_NAME_TH || "";
+      m.DISTRICT_NAME_EN = m.DISTRICT_NAME_EN || "";
+      m.PROVINCE_NAME_TH = m.PROVINCE_NAME_TH || "";
+      m.PROVINCE_NAME_EN = m.PROVINCE_NAME_EN || "";
       m.VILLAGE_NAME = m.VILLAGE_NAME || "";
       m.VILLAGE_NO = m.VILLAGE_NO || "";
     });
@@ -1323,6 +1332,12 @@ export class ManageComponent
       m.ROOM_NO = m.ROOM_NO || "";
       m.Region = m.Region || "";
       m.SUB_DISTRICT_ID = m.SUB_DISTRICT_ID || "";
+      m.SUB_DISTRICT_NAME_TH = m.SUB_DISTRICT_NAME_TH || "";
+      m.SUB_DISTRICT_NAME_EN = m.SUB_DISTRICT_NAME_EN || "";
+      m.DISTRICT_NAME_TH = m.DISTRICT_NAME_TH || "";
+      m.DISTRICT_NAME_EN = m.DISTRICT_NAME_EN || "";
+      m.PROVINCE_NAME_TH = m.PROVINCE_NAME_TH || "";
+      m.PROVINCE_NAME_EN = m.PROVINCE_NAME_EN || "";
       m.VILLAGE_NAME = m.VILLAGE_NAME || "";
       m.VILLAGE_NO = m.VILLAGE_NO || "";
     });
@@ -1702,43 +1717,65 @@ export class ManageComponent
   //         this.typeheadcommunicateModel = res;
   //     })
   // }
-  private async setRegionStore() {
-    await this.mainMasterService.MasLocalegetByCon().then((res) => {
-      let Locale = res.RESPONSE_DATA;
-      if (Locale.length > 0) {
-        Locale.map((m) =>
-          this.typeheadRegion.push({
-            SUB_DISTRICT_ID: m.SUB_DISTRICT_ID,
-            SUB_DISTRICT_NAME_TH: m.SUB_DISTRICT_NAME_TH,
-            SUB_DISTRICT_NAME_EN: m.SUB_DISTRICT_NAME_EN,
-            DISTRICT_NAME_TH: m.DISTRICT_NAME_TH,
-            DISTRICT_NAME_EN: m.DISTRICT_NAME_EN,
-            PROVINCE_NAME_TH: m.PROVINCE_NAME_TH,
-            PROVINCE_NAME_EN: m.PROVINCE_NAME_EN,
-          })
-        );
-      }
-    });
-  }
 
-  selectItemLocaleRegion(ele: any) {
+  //****Ref# line 816****//
+  // private async setRegionStore() {
+  //   await this.mainMasterService.MasLocalegetByCon().then((res) => {
+  //     let Locale = res.RESPONSE_DATA;
+  //     if (Locale.length > 0) {
+  //       Locale.map((m) =>
+  //         this.typeheadRegion.push({
+  //           SUB_DISTRICT_ID: m.SUB_DISTRICT_ID,
+  //           SUB_DISTRICT_NAME_TH: m.SUB_DISTRICT_NAME_TH,
+  //           SUB_DISTRICT_NAME_EN: m.SUB_DISTRICT_NAME_EN,
+  //           DISTRICT_NAME_TH: m.DISTRICT_NAME_TH,
+  //           DISTRICT_NAME_EN: m.DISTRICT_NAME_EN,
+  //           PROVINCE_NAME_TH: m.PROVINCE_NAME_TH,
+  //           PROVINCE_NAME_EN: m.PROVINCE_NAME_EN,
+  //         })
+  //       );
+  //     }
+  //   });
+  // }
+
+  selectItemLocale(ele: any) {
     this.loaderService.showLoader();
     this.NoticeLocale.at(0).patchValue({
       SUB_DISTRICT_ID: ele.item.SUB_DISTRICT_ID,
-
+      SUB_DISTRICT_NAME_TH: ele.item.SUB_DISTRICT_NAME_TH,
+      SUB_DISTRICT_NAME_EN: ele.item.SUB_DISTRICT_NAME_EN,
+      DISTRICT_NAME_TH: ele.item.DISTRICT_NAME_TH,
+      DISTRICT_NAME_EN: ele.item.DISTRICT_NAME_EN,
+      PROVINCE_NAME_TH: ele.item.PROVINCE_NAME_TH,
+      PROVINCE_NAME_EN: ele.item.PROVINCE_NAME_EN,
     });
+    this.invalid.next(false);
+    this.isReq_Local.next(false);
+    this.REGION_REQ.next(false);
 
     // ///********SET LOCALE_OFFICE_CODE*********//
-    const MasSubDrt: any = {
+    const MasSubDrtt: any = {
       TEXT_SEARCH: "",
       SUB_DISTRICT_ID: ele.item.SUB_DISTRICT_ID,
       DISTRICT_ID: null,
     };
     this.preloader.setShowPreloader(true);
-    this.mainMasterService.MasSubDistrictgetByCon(MasSubDrt).subscribe((s) => {
+    this.mainMasterService.MasSubDistrictgetByCon(MasSubDrtt).subscribe((s) => {
       if (s.length) this.LOCALE_OFFICE_CODE = s[0].OFFICE_CODE;
       this.preLoaderService.setShowPreloader(false);
+
     });
+
+    // let LOCALE = this.NoticeLocale.getRawValue();
+    // const MasSubDrt: MasSubDistrictgetByCon = {
+    //   TEXT_SEARCH: "",
+    //   SUB_DISTRICT_ID: LOCALE[0].SUB_DISTRICT_ID,
+    //   DISTRICT_ID: null,
+    // };
+    // this.mainMasterService.MasSubDistrictgetByCon(MasSubDrt).subscribe((s) => {
+    //   if (s.length) this.LOCALE_OFFICE_CODE = s[0].OFFICE_CODE;
+    // });
+    // this.loaderService.onEnd();
   }
 
   public searchRegion = (text2$: Observable<string>) =>
@@ -1756,8 +1793,6 @@ export class ManageComponent
           })
       )
       .do(() => (this.searching = false));
-
-
 
   public searchStaff = (text2$: Observable<string>) =>
     text2$
@@ -2257,5 +2292,4 @@ export class ManageComponent
         });
       }, 200);
   }
-
 }

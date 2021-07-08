@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+import { ViewChild, ElementRef, EventEmitter, Output, Input } from '@angular/core';
 import { MasDutyUnitModel } from "app/models/mas-duty-unit.model";
 import {
     communicate,
@@ -186,6 +186,10 @@ export class variable {
     @ViewChild('CreateSuspectModal') public CreateSuspectModal: ElementRef;
     @ViewChild('ViewLawbreakerModal') public ViewLawbreakerModal: ElementRef;
 
+    @Input() invalid = new BehaviorSubject<Boolean>(false);
+    @Input() isEdit: boolean;
+    @Input() REGION_REQ = new BehaviorSubject<Boolean>(false);
+ 
     @Output() ModeEmit: string = '';
     @Output() d = new EventEmitter();
     @Output() c = new EventEmitter();
