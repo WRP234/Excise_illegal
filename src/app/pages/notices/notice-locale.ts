@@ -48,8 +48,6 @@ export class NoticeLocale {
 }
 
 export const NoticeLocaleFormControl = {
-
-
     LOCALE_ID: new FormControl(""),
     NOTICE_ID: new FormControl(""),
     SUB_DISTRICT_ID: new FormControl(""),
@@ -68,6 +66,13 @@ export const NoticeLocaleFormControl = {
     POLICE_STATION: new FormControl(""),
     LOCATION: new FormControl(""),
     IS_ACTIVE: new FormControl(""),
+    
+    SUB_DISTRICT_NAME_TH: new FormControl(""),
+    SUB_DISTRICT_NAME_EN: new FormControl(""),
+    DISTRICT_NAME_TH: new FormControl(""),
+    DISTRICT_NAME_EN: new FormControl(""),
+    PROVINCE_NAME_TH: new FormControl(""),
+    PROVINCE_NAME_EN: new FormControl(""),
 
 
     // LocaleID: new FormControl(null),

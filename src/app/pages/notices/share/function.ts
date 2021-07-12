@@ -373,9 +373,16 @@ export class ShareFunctions extends variable implements OnDestroy {
     if (!ele.value) {
       this.NoticeLocale.at(0).patchValue({
         SUB_DISTRICT_ID: "",
+        SUB_DISTRICT_NAME_TH: "",
+        SUB_DISTRICT_NAME_EN: "",
+        DISTRICT_NAME_TH: "",
+        DISTRICT_NAME_EN: "",
+        PROVINCE_NAME_TH: "",
+        PROVINCE_NAME_EN: "",
       });
     }
   }
+
 
   clearStaffOfindex(i) {
     this.NoticeStaff.at(i).patchValue({

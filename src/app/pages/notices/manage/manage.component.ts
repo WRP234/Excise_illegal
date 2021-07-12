@@ -707,6 +707,14 @@ export class ManageComponent
       (NoticeLocaleFormControl.LOCATION = new FormControl("")),
       (NoticeLocaleFormControl.IS_ACTIVE = new FormControl("")),
       (NoticeLocaleFormControl.Region = new FormControl(""));
+
+      (NoticeLocaleFormControl.SUB_DISTRICT_NAME_TH = new FormControl(""));
+      (NoticeLocaleFormControl.SUB_DISTRICT_NAME_EN = new FormControl(""));
+      (NoticeLocaleFormControl.DISTRICT_NAME_TH = new FormControl(""));
+      (NoticeLocaleFormControl.DISTRICT_NAME_EN = new FormControl(""));
+      (NoticeLocaleFormControl.PROVINCE_NAME_TH = new FormControl(""));
+      (NoticeLocaleFormControl.PROVINCE_NAME_EN = new FormControl(""));
+
     return this.fb.group(NoticeLocaleFormControl);
   }
 
@@ -996,6 +1004,8 @@ export class ManageComponent
 
       this.DuplicatePorductGroup(product);
 
+      // console.log('res.NoticeLocale : ',res.NoticeLocale);
+      
       await this.setItemFormArray(this.NoticeStaff.value, "NoticeStaff");
       await this.setItemFormArray(res.NoticeInformer, "NoticeInformer");
       await this.setItemFormArray(res.NoticeLocale, "NoticeLocale");
@@ -1738,7 +1748,7 @@ export class ManageComponent
   //   });
   // }
 
-  selectItemLocale(ele: any) {
+  selectItemLocaleRegion(ele: any) {
     this.loaderService.showLoader();
     this.NoticeLocale.at(0).patchValue({
       SUB_DISTRICT_ID: ele.item.SUB_DISTRICT_ID,
@@ -1754,28 +1764,28 @@ export class ManageComponent
     this.REGION_REQ.next(false);
 
     // ///********SET LOCALE_OFFICE_CODE*********//
-    const MasSubDrtt: any = {
-      TEXT_SEARCH: "",
-      SUB_DISTRICT_ID: ele.item.SUB_DISTRICT_ID,
-      DISTRICT_ID: null,
-    };
-    this.preloader.setShowPreloader(true);
-    this.mainMasterService.MasSubDistrictgetByCon(MasSubDrtt).subscribe((s) => {
-      if (s.length) this.LOCALE_OFFICE_CODE = s[0].OFFICE_CODE;
-      this.preLoaderService.setShowPreloader(false);
-
-    });
-
-    // let LOCALE = this.NoticeLocale.getRawValue();
-    // const MasSubDrt: MasSubDistrictgetByCon = {
+    // const MasSubDrtt: any = {
     //   TEXT_SEARCH: "",
-    //   SUB_DISTRICT_ID: LOCALE[0].SUB_DISTRICT_ID,
+    //   SUB_DISTRICT_ID: ele.item.SUB_DISTRICT_ID,
     //   DISTRICT_ID: null,
     // };
-    // this.mainMasterService.MasSubDistrictgetByCon(MasSubDrt).subscribe((s) => {
+    // this.preloader.setShowPreloader(true);
+    // this.mainMasterService.MasSubDistrictgetByCon(MasSubDrtt).subscribe((s) => {
     //   if (s.length) this.LOCALE_OFFICE_CODE = s[0].OFFICE_CODE;
+    //   this.preLoaderService.setShowPreloader(false);
+
     // });
-    // this.loaderService.onEnd();
+
+    let LOCALE = this.NoticeLocale.getRawValue();
+    const MasSubDrt: MasSubDistrictgetByCon = {
+      TEXT_SEARCH: "",
+      SUB_DISTRICT_ID: LOCALE[0].SUB_DISTRICT_ID,
+      DISTRICT_ID: null,
+    };
+    this.mainMasterService.MasSubDistrictgetByCon(MasSubDrt).subscribe((s) => {
+      if (s.length) this.LOCALE_OFFICE_CODE = s[0].OFFICE_CODE;
+    });
+    this.loaderService.onEnd();
   }
 
   public searchRegion = (text2$: Observable<string>) =>

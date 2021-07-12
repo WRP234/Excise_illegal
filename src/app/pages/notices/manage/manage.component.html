@@ -892,6 +892,7 @@
                                     [readonly]="showEditField"> -->
                                 <ng-template #rt let-r="result" let-t="term">
                                     {{ r.SUB_DISTRICT_NAME_TH }} {{r.DISTRICT_NAME_TH}} {{r.PROVINCE_NAME_TH}}
+                                    <!-- {{ r.TITLE_SHORT_NAME_TH}}{{r.FIRST_NAME}} {{r.LAST_NAME}} -->
                                 </ng-template>
                                 <!-- <input type="text" class="form-control form-control-sm" [ngbTypeahead]="searchRegion"
                                     [readOnly]="showEditField" [resultTemplate]="rt" [inputFormatter]="formatterRegion"
@@ -903,12 +904,20 @@
 
                                 <input type="text" class="form-control form-control-sm" [ngbTypeahead]="searchRegion"
                                     [readOnly]="showEditField" [resultTemplate]="rt" [inputFormatter]="formatterRegion"
-                                    (selectItem)="selectItemInformmerRegion($event)"
-                                    (blur)="blurSelectItemLocaleRegion(localeRegion)"
-                                    value="{{item.get('SUB_DISTRICT_NAME_TH').value ? item.get('SUB_DISTRICT_NAME_TH').value + ' ' : null}}
-                                    {{item.get('DISTRICT_NAME_TH').value ? item.get('DISTRICT_NAME_TH').value + ' ' : null}}{{item.get('PROVINCE_NAME_TH').value}}"
-                                    required [ngClass]="{'is-invalid': (REGION_REQ | async)}"
-                                    (keydown)="isReq_Local.next(false)" #localeRegion />
+                                    (selectItem)="selectItemLocaleRegion($event)"
+                                    value="{{item.get('SUB_DISTRICT_NAME_TH').value ? item.get('SUB_DISTRICT_NAME_TH').value + ' ' : null}}{{item.get('DISTRICT_NAME_TH').value ? item.get('DISTRICT_NAME_TH').value + ' ' : null}}{{item.get('PROVINCE_NAME_TH').value}}"
+                                    [ngClass]="{'ng-invalid-req':isReq_Local.value}" (keydown)="isReq_Local.next(false)" required/>
+
+                                    <!-- <ng-template #rt1 let-r="result" let-t="term">
+                                        {{ r.TITLE_SHORT_NAME_TH}}{{r.FIRST_NAME}} {{r.LAST_NAME}}
+                                    </ng-template>
+                                    <input type="text" #region2 class="form-control form-control-sm"
+                                        [ngbTypeahead]="searchStaff" [resultTemplate]="rt1"
+                                        [readOnly]="showEditField || NoticeStaff.value[1].FULL_NAME"
+                                        [inputFormatter]="formatterStaff1" (selectItem)="selectItemStaff($event, 1)"
+                                        [value]=" NoticeStaff.value[1].FULL_NAME"
+                                        [ngClass]="{'ng-invalid-req':isReq_Staff1.value}" (keydown)="isReq_Staff1.next(false)"
+                                        required /> -->
 
                                 <!-- <div class="alert alert-danger mt-3" role="alert" *ngIf="isReq_Local.value">
                                     กรุณาระบุข้อมูล "ตำบล/อำเภอ/จังหวัด"
